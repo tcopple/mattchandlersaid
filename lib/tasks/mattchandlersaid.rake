@@ -39,7 +39,7 @@ namespace :thingsmattchandlersaid do
         end
 
         re = /href='(http:\/\/media.thevillagechurch.net\/sermons\/transcripts[A-Za-z0-9 -_]*MattChandler[A-Za-z0-9 _-]*.pdf)/i
-        response.scan(re) do |match|
+        response.scan(re).each do |match|
           puts
           file = File.basename(match.to_s).chomp(File.extname(match.to_s)) << ".txt"
 
