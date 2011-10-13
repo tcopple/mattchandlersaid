@@ -65,7 +65,7 @@ namespace :thingsmattchandlersaid do
 
     desc "convert pdf's to text files."
     task :convert => 'thingsmattchandlersaid:setup' do
-      Dir[File.join(Rails.root, 'data', 'fetched', '*.pdf')].each do |pdf|
+      Dir[File.join(Rails.root, 'data', 'fetched', '*.pdf')].sort.each do |pdf|
         puts "converting #{File.basename(pdf)}"
 
         `pdftotext #{pdf}`
@@ -85,7 +85,7 @@ namespace :thingsmattchandlersaid do
       replacements["\xe2\x80\x94"] = '--'
       replacements["\xe2\x80\xa6"] = '...'
 
-      Dir[File.join(Rails.root, 'data', 'converted', '*.txt')].each do |file|
+      Dir[File.join(Rails.root, 'data', 'converted', '*.txt')].sort.each do |file|
         puts "cleaning #{File.basename(file)}"
 
         sermon_text = nil
@@ -105,7 +105,7 @@ namespace :thingsmattchandlersaid do
 
     desc "load txt files into database."
     task :load => 'thingsmattchandlersaid:setup' do
-      Dir[File.join(Rails.root, 'data', 'cleaned', '*.txt')].each do |file|
+      Dir[File.join(Rails.root, 'data', 'cleaned', '*.txt')].sort.each do |file|
         filename = File.basename(file, ".txt") + ".pdf"
         puts "Loading #{filename}"
         date = Date.strptime(filename.slice(0,8), "%Y%m%d")
