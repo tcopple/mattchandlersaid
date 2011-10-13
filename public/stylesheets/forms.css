@@ -1,0 +1,67 @@
+form label {
+	display: block;
+	font-weight: bold;
+}
+
+form input[type=text],
+form input[type=email],
+form input[type=password] {
+	font-size: 14px;
+	padding: 4px;
+}
+
+form input[type=checkbox] {
+	position: relative;
+	top: 1px;
+}
+
+form div.form-element {
+	margin-bottom: 10px;
+}
+
+form div.form-checkbox {
+	margin-bottom: 20px;
+}
+
+form div.form-checkbox label {
+	display: inline;
+	font-weight: normal;
+}
+
+form div.explanation {
+	color: #999999;
+	display: inline;
+	font-size: 11px;
+	padding-left: 5px;
+	position: relative;
+	bottom: 2px;
+}
+
+form ol {
+  list-style: none;
+}
+
+form li {
+  margin-left: 0px;
+}
+
+form textarea {
+}
+.expand { width: 50%; }
+
+#errors h3 {
+	color: #CC0000;
+	font-size: 15px;
+	margin-bottom: 0;
+}
+
+#errors ul {
+	margin-bottom: 20px;
+}
+
+#errors ul li {
+	color: #CC0000;
+	font-size: 12px;
+	list-style: none;
+	margin-left: 20px;
+}

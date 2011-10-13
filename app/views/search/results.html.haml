@@ -1,0 +1,13 @@
+#query
+  = render :partial => "search/search_box", :locals => {:center => false}
+
+  .grid_8
+    #results
+      - @results.each do |r|
+        .result
+          = puts r
+          .date= r.published_date.strftime("%B %d %Y")
+          %h3.title= link_to r.title, r.url
+          %p= r.excerpts.content.html_safe
+
+    = will_paginate @results, :class => "pagination"

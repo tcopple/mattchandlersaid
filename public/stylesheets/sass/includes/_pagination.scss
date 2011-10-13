@@ -1,0 +1,23 @@
+.pagination {
+  margin: 10px 0px;
+  text-align: right;
+
+  em {
+    color: #333;
+    text-decoration: none;
+    background-color: #fff;
+    padding: 2px 5px;
+    border: 1px solid #fff;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    padding: 2px 5px;
+    border: 1px solid #fff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+

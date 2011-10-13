@@ -1,0 +1,48 @@
+.pad-left { padding-left: 50px; }
+
+#title {
+	color: #FFFFFF;
+	height: 75px;
+}
+
+#title img {
+	margin-top: 10px;
+}
+
+#title a {
+	color: #b7dd5b;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.match {
+  font-weight: bold;
+}
+
+#front {
+  position: absolute;
+  top: 30%;
+}
+
+#search {
+  height: 30px;
+  margin-bottom: 30px;
+}
+
+#search .bar {
+  font-size: 2em;
+  border: 1px solid #ccc;
+  color: #666;
+  width: 80%;
+  margin-right: 5px;
+}
+
+#search .icon {
+  vertical-align: middle;
+  padding-bottom: 15px;
+}
+
+#results .result {
+  padding: 10px 0px;
+}

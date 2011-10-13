@@ -1,0 +1,26 @@
+!!! html5
+%html
+  %head
+    %title matt chandler said
+    = stylesheet_link_tag :all
+    = google_font_link_tag("PT Serif")
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+
+    %body
+      #disclaimer
+        =render :partial => "layouts/disclaimer"
+      #container.container_12
+
+        #header.grid_12
+          = render :partial => "layouts/header"
+
+        #notification
+          %p.notice= notice
+          %p.alert= alert
+
+        #content
+          = yield
+
+        #footer.grid_12
+          = render :partial => "layouts/footer"
