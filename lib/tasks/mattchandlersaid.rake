@@ -77,13 +77,13 @@ namespace :thingsmattchandlersaid do
     task :clean => 'thingsmattchandlersaid:setup' do
       replacements = Hash.new
       replacements["'"] = "'"
-      replacements["\342\200\230"] = "'"
-      replacements["\342\200\231"] = "'"
-      replacements["\342\200\234"] = '"'
-      replacements["\342\200\235"] = '"'
-      replacements["\xe2\x80\x93"] = '-'
-      replacements["\xe2\x80\x94"] = '--'
-      replacements["\xe2\x80\xa6"] = '...'
+      replacements[/\342\200\230/u] = "'"
+      replacements[/\342\200\231/u] = "'"
+      replacements[/\342\200\234/u] = '"'
+      replacements[/\342\200\235/u] = '"'
+      replacements[/\xe2\x80\x93/u] = '-'
+      replacements[/\xe2\x80\x94/u] = '--'
+      replacements[/\xe2\x80\xa6/u] = '...'
 
       Dir[File.join(Rails.root, 'data', 'converted', '*.txt')].sort.each do |file|
         puts "cleaning #{File.basename(file)}"
