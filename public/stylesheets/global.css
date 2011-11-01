@@ -12,6 +12,7 @@ body {
 .left { float: left; }
 .right { float: right; }
 .inline { display: inline; }
+.italic { font-style: italic; }
 
 a { color: #fff; text-decoration: none; }
 a:hover { color: #fff; }

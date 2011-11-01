@@ -1,13 +1,12 @@
 #query
-  = render :partial => "search/search_box", :locals => {:center => false}
+  = render :partial => "search/search_box", :locals => {:center => false, :message => "Found #{@results.total_entries} sermons."}
 
   .grid_8
     #results
-      - @results.each do |r|
+      - @results.each_with_weighting do |r, weight|
         .result
-          = puts r
           .date= r.published_date.strftime("%B %d %Y")
           %h3.title= link_to r.title, r.url
           %p= r.excerpts.content.html_safe
 
-    = will_paginate @results, :class => "pagination"
+    = will_paginate @results, :class => "pagination", :params => { :search => @search }

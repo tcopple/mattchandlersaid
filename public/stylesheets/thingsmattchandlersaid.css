@@ -1,5 +1,9 @@
 .pad-left { padding-left: 50px; }
 
+#action_bar {
+  margin-bottom: 50px;
+}
+
 #title {
 	color: #FFFFFF;
 	height: 75px;
@@ -27,7 +31,7 @@
 
 #search {
   height: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 #search .bar {
