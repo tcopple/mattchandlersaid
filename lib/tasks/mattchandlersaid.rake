@@ -6,7 +6,7 @@ def create_if_missing *names
   end
 end
 
-namespace :thingsmattchandlersaid do
+namespace :mattchandlersaid do
   task :setup => :environment do
     data = "#{Rails.root}/data/"
     fetched = "#{data}/fetched/"
@@ -19,7 +19,7 @@ namespace :thingsmattchandlersaid do
 
   namespace :sermons do
     desc "fetch new pdfs from thevillagechurch.com"
-    task :fetch => 'thingsmattchandlersaid:setup' do
+    task :fetch => 'mattchandlersaid:setup' do
       require 'open-uri'
       require 'net/http'
       pdfs = Dir[File.join(Rails.root, 'data', 'fetched', '*.pdf')].collect {|f| File.basename(f)}
@@ -64,7 +64,7 @@ namespace :thingsmattchandlersaid do
     end
 
     desc "convert pdf's to text files."
-    task :convert => 'thingsmattchandlersaid:setup' do
+    task :convert => 'mattchandlersaid:setup' do
       Dir[File.join(Rails.root, 'data', 'fetched', '*.pdf')].sort.each do |pdf|
         puts "converting #{File.basename(pdf)}"
 
@@ -74,7 +74,7 @@ namespace :thingsmattchandlersaid do
     end
 
     desc "clean all txt files of non printable characters"
-    task :clean => 'thingsmattchandlersaid:setup' do
+    task :clean => 'mattchandlersaid:setup' do
       replacements = Hash.new
       replacements["'"] = "'"
       replacements[/\342\200\230/u] = "'"
@@ -104,7 +104,7 @@ namespace :thingsmattchandlersaid do
     end
 
     desc "load txt files into database."
-    task :load => 'thingsmattchandlersaid:setup' do
+    task :load => 'mattchandlersaid:setup' do
       Dir[File.join(Rails.root, 'data', 'cleaned', '*.txt')].sort.each do |file|
         filename = File.basename(file, ".txt") + ".pdf"
         puts "Loading #{filename}"
