@@ -6,7 +6,9 @@ class SearchController < ApplicationController
 
   def results
     page = params[:page] || 1
-    @results = Sermon.search params[:search], :page => page, :per_page => 10
+    @search = params[:search]
+    @results = Sermon.search params[:search], :page => page, :per_page => 10, :field_weights => { :title => 10, :content => 5}
+    @total_sermons = Sermon.all.count
 
     respond_with @results
   end
