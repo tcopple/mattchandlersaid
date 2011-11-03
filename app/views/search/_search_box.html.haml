@@ -1,3 +1,4 @@
+- message ||= ""
 #action_bar
   #title.grid_7
     %img{ :src => 'images/title.png' }
@@ -7,5 +8,4 @@
       = text_field_tag 'search', @search, :class => "bar"
       = image_submit_tag '/images/search.png', :class => "icon"
   .clear
-  -if not message.nil?
-    .grid_7.italic.message= message
+  .grid_7.italic.message= message
