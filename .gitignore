@@ -2,7 +2,9 @@ data/
 tmp/
 vendor/
 log/
-config/development.sphinx.conf
+config/*.sphinx.conf
 config/database.yml
 public/stylesheets/base.css
 public/stylesheets/includes.css
+.bundle/
+db/sphinx/
