@@ -1,4 +1,5 @@
 - message ||= ""
+
 #action_bar
   #title.grid_7
     %img{ :src => 'images/title.png' }
@@ -8,4 +9,13 @@
       = text_field_tag 'search', @search, :class => "bar"
       = image_submit_tag '/images/search.png', :class => "icon"
   .clear
-  .grid_7.italic.message= message
+  - if message.empty?
+    #options
+      %ul
+        %li.recent= link_to "recently added", { :controller => "search", :action => "recent" }, :remote => true
+        %li.recent= link_to "top queries", { :controller => "search", :action => "queries" }, :remote => true
+    %br
+    %br
+    %div#info
+  - else
+    .grid_7.italic.message= message

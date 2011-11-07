@@ -1,0 +1,5 @@
+:plain
+  $('#info').slideUp('fast', function() {
+    $(this).html('#{escape_javascript(render :partial => "search/option_recent", :locals => { :list => @sermons })}');
+    $(this).slideDown();
+  });

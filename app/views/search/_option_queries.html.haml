@@ -1,0 +1,4 @@
+%ul
+  - list.each do |q|
+    %li
+      = link_to q.query, query_path(:search => q.query)

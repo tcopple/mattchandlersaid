@@ -1,0 +1,6 @@
+%ul
+  - list.each do |s|
+    %li
+      = s.published_date.strftime("%m.%d.%Y")
+      = " | "
+      = link_to s.title, s.url
