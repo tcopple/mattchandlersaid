@@ -1,0 +1,29 @@
+#options {
+  margin-top: 8px;
+
+  a {
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+
+    li {
+      float: left;
+    }
+  }
+}
+
+#info {
+  ul {
+    list-style-type: none;
+
+    a {
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+}

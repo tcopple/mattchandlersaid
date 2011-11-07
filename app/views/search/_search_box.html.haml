@@ -10,10 +10,10 @@
       = image_submit_tag '/images/search.png', :class => "icon"
   .clear
   - if message.empty?
-    #options
+    #options.grid_7
       %ul
         %li.recent= link_to "recently added", { :controller => "search", :action => "recent" }, :remote => true
-        %li.recent= link_to "top queries", { :controller => "search", :action => "queries" }, :remote => true
+        %li.recent= link_to "common searches", { :controller => "search", :action => "queries" }, :remote => true
     %br
     %br
     %div#info
