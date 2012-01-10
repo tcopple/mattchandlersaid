@@ -15,5 +15,6 @@ class Sermon < ActiveRecord::Base
   define_index do
     indexes title
     indexes content
+    has published_date
   end
 end

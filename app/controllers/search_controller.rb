@@ -17,8 +17,11 @@ class SearchController < ApplicationController
       q.update_attributes(:count => q.count+1, :last_use => DateTime.now)
     end
 
-    @results = Sermon.search params[:search], :page => page, :per_page => 10, :field_weights => { :title => 10, :content => 5}
-    @total_sermons = Sermon.all.count
+    @results = Sermon.search params[:search], 
+		 	     :with => {:published_date => (DateTime.new(2006, 1, 1)..DateTime.now)},
+			     :page => page, 
+			     :per_page => 10, 
+                             :field_weights => { :title => 10, :content => 5}
 
     respond_with @results
   end
