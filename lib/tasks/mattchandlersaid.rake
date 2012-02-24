@@ -17,6 +17,33 @@ namespace :mattchandlersaid do
     create_if_missing data, fetched, converted, cleaned, loaded
   end
 
+  namespace :server do
+    desc "start server"
+    task :start => 'mattchandlersaid:setup' do
+      puts "Starting #{Rails.env} listeners."
+
+      #to avoid port collisions when the prod app is running
+      port = 4000
+      port += 1000 if Rails.env == 'development'
+      `bundle exec this start -s5 -p #{port} -e #{Rails.env}`
+    end
+
+    desc "stop server"
+    task :stop => 'mattchandlersaid:setup' do
+      puts "Stopping #{Rails.env} listeners."
+      port = 4000
+      port += 1000 if Rails.env == 'development'
+      `bundle exec this stop -s5 -p #{port} -e #{Rails.env}`
+    end
+
+    desc "restart server"
+    task :restart => 'mattchandlersaid:setup' do
+      Rake::Task["mattchandlersaid:server:stop"].invoke
+      Rake::Task["thinking_sphinx:rebuild"].invoke
+      Rake::Task["mattchandlersaid:server:start"].invoke
+    end
+  end
+
   namespace :sermons do
     desc "fetch new pdfs from thevillagechurch.com"
     task :fetch => 'mattchandlersaid:setup' do
@@ -124,10 +151,11 @@ namespace :mattchandlersaid do
 
     desc "fetch, convert, load, and reindex for new sermons"
     task :update => 'mattchandlersaid:setup' do
-      Rake::Task["mattchandlersaid:sermons:fetch"].execute
-      Rake::Task["mattchandlersaid:sermons:convert"].execute
-      Rake::Task["mattchandlersaid:sermons:clean"].execute
-      Rake::Task["mattchandlersaid:sermons:load"].execute
+      Rake::Task["mattchandlersaid:sermons:fetch"].invoke
+      Rake::Task["mattchandlersaid:sermons:convert"].invoke
+      Rake::Task["mattchandlersaid:sermons:clean"].invoke
+      Rake::Task["mattchandlersaid:sermons:load"].invoke
+      Rake::Task["thinking_sphinx:rebuild"].invoke
     end
   end
 end
