@@ -25,7 +25,7 @@ namespace :mattchandlersaid do
       #to avoid port collisions when the prod app is running
       port = 4000
       port += 1000 if Rails.env == 'development'
-      `bundle exec this start -s5 -p #{port} -e #{Rails.env}`
+      `bundle exec thin start -s5 -p #{port} -e #{Rails.env}`
     end
 
     desc "stop server"
@@ -33,7 +33,7 @@ namespace :mattchandlersaid do
       puts "Stopping #{Rails.env} listeners."
       port = 4000
       port += 1000 if Rails.env == 'development'
-      `bundle exec this stop -s5 -p #{port} -e #{Rails.env}`
+      `bundle exec thin stop -s5 -p #{port} -e #{Rails.env}`
     end
 
     desc "restart server"
