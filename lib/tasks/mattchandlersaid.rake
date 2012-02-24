@@ -72,7 +72,8 @@ namespace :mattchandlersaid do
 
           # file = File.basename(match.to_s).chomp(File.extname(match.to_s)) << ".txt"
           basename = File.basename(match[0].to_s)
-          found = Sermon.where(:filename => basename)
+          date = Date.strptime(basename.slice(0,8), "%Y%m%d")
+          found = Sermon.where(:published_date => date)
 
           if not found.empty?
             puts "Skipping #{basename} because it's already been loaded."
