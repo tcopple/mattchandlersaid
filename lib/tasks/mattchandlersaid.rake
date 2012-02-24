@@ -22,6 +22,7 @@ namespace :mattchandlersaid do
     task :fetch => 'mattchandlersaid:setup' do
       require 'open-uri'
       require 'net/http'
+
       pdfs = Dir[File.join(Rails.root, 'data', 'fetched', '*.pdf')].collect {|f| File.basename(f)}
 
       base = "http://www.thevillagechurch.net/ajax/ajax-resources-sermons.php?page="
@@ -38,24 +39,19 @@ namespace :mattchandlersaid do
           response = file.read()
         end
 
-        re = /href='(http:\/\/media.thevillagechurch.net\/sermons\/transcripts[A-Za-z0-9 -_]*MattChandler[A-Za-z0-9 _-]*.pdf)/i
+        re = /href='(http:\/\/media.thevillagechurch.net\/sermons\/transcripts\/[^ ]*?MattChandler[^ ]*?.pdf)'/i
         response.scan(re).each do |match|
-          puts
-          file = File.basename(match.to_s).chomp(File.extname(match.to_s)) << ".txt"
-
-          if File.exists? "#{Rails.root}/data/loaded/#{file}"
-            puts "Skipping #{File.basename(match.to_s)} because it's already been loaded."
-            next
-          else
-            puts "Fetching #{File.basename(match.to_s)}"
-          end
-
           Dir.chdir("#{Rails.root}/data/fetched/")
-          unless pdfs.include? File.basename(match[0])
-            puts "Downloading #{match[0]}"
-            `wget -nc --limit-rate=50K #{match}`
+
+          # file = File.basename(match.to_s).chomp(File.extname(match.to_s)) << ".txt"
+          basename = File.basename(match[0].to_s)
+          found = Sermon.where(:filename => basename)
+
+          if not found.empty?
+            puts "Skipping #{basename} because it's already been loaded."
           else
-            puts "Skipping #{match[0]} because it's already been fetched."
+            puts "Fetching #{basename}"
+            `wget -nc --limit-rate=50K #{match[0]}`
           end
 
           Dir.chdir(Rails.root)
@@ -70,6 +66,7 @@ namespace :mattchandlersaid do
 
         `pdftotext #{pdf}`
         FileUtils.mv "#{pdf.chomp(File.extname(pdf))}.txt", "#{Rails.root}/data/converted/" if $? == 0
+        FileUtils.rm pdf
       end
     end
 
@@ -100,6 +97,7 @@ namespace :mattchandlersaid do
         File.open("#{Rails.root}/data/cleaned/#{File.basename(file)}", "w") do |f|
           f.write sermon_text
         end
+        FileUtils.rm file
       end
     end
 
@@ -122,6 +120,14 @@ namespace :mattchandlersaid do
 
         FileUtils.mv file, "#{Rails.root}/data/loaded/#{File.basename(file)}"
       end
+    end
+
+    desc "fetch, convert, load, and reindex for new sermons"
+    task :update => 'mattchandlersaid:setup' do
+      Rake::Task["mattchandlersaid:sermons:fetch"].execute
+      Rake::Task["mattchandlersaid:sermons:convert"].execute
+      Rake::Task["mattchandlersaid:sermons:clean"].execute
+      Rake::Task["mattchandlersaid:sermons:load"].execute
     end
   end
 end
